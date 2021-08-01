@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">VSWR</string>
+    <string name="lbl_fwd">Forward (W)</string>
+    <string name="lbl_ref">Reflected (W)</string>
+    <string name="hint_fwd">Forward Power (W)</string>
+    <string name="hint_ref">Reflected Power (W)</string>
+    <string name="lbl_title">VSWR Power</string>
+    <string name="button_calc">Calc</string>
+    <string name="button_clear">Clear</string>
+    <string name="txtBy">Mike Larue - 2021</string>
+</resources>
