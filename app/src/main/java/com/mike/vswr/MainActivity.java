@@ -21,12 +21,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Setup buttons
         Button butCalc = findViewById(R.id.bCalc);
         butCalc.setOnClickListener(this);
         Button butClear = findViewById(R.id.bClear);
         butClear.setOnClickListener(this);
     }
 
+    //Make app full screen on focus
     @Override
     public void onWindowFocusChanged(boolean hasFocus)
     {
@@ -37,36 +39,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Hide ugly system UI
     private void hideSystemUI()
     {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
 
     @Override
     public void onClick(View view)
     {
-
+        //Fetch next fields
         EditText txtFwd = findViewById(R.id.txtFwd);
         EditText txtRef = findViewById(R.id.txtRef);
         TextView lblVswr = findViewById(R.id.lblVswr);
 
+
         if (view.getId() == R.id.bCalc)
         {
-            double dFwd;
-            double dRef;
-            double dVswr;
-            DecimalFormat df = new DecimalFormat("0.00");
-            dFwd = Double.parseDouble(txtFwd.getText().toString());
-            dRef = Double.parseDouble(txtRef.getText().toString());
-            dVswr = (1 + Math.sqrt(dRef / dFwd)) / (1 - Math.sqrt(dRef / dFwd));
+            //Fetch text from input fields
+            double dFwd = Double.parseDouble(txtFwd.getText().toString());
+            double dRef = Double.parseDouble(txtRef.getText().toString());
+
+            //Calculate VSWR
+            double dVswr = (1 + Math.sqrt(dRef / dFwd)) / (1 - Math.sqrt(dRef / dFwd));
+
+            //Red text for bad VSWR, Green text for good VSWR
             if (dVswr <= 1.5)
             {
                 lblVswr.setTextColor(Color.GREEN);
@@ -75,10 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 lblVswr.setTextColor(Color.RED);
             }
+
+            //Show result rounded to two decimal places
+            DecimalFormat df = new DecimalFormat("0.00");
             lblVswr.setText(df.format(dVswr));
+
         }
         else if (view.getId() == R.id.bClear)
         {
+            //clear all input fields and result
             lblVswr.setText("");
             txtFwd.setText("");
             txtRef.setText("");
@@ -86,3 +96,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 }
+

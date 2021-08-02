@@ -7,5 +7,5 @@
     <string name="lbl_title">VSWR Power</string>
     <string name="button_calc">Calc</string>
     <string name="button_clear">Clear</string>
-    <string name="txtBy">Mike Larue - 2021</string>
+    <string name="lblBy">Mike Larue - 2021</string>
 </resources>
