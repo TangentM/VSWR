@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.Math;
 import java.text.DecimalFormat;
@@ -64,26 +65,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view.getId() == R.id.bCalc)
         {
-            //Fetch text from input fields
-            double dFwd = Double.parseDouble(txtFwd.getText().toString());
-            double dRef = Double.parseDouble(txtRef.getText().toString());
-
-            //Calculate VSWR
-            double dVswr = (1 + Math.sqrt(dRef / dFwd)) / (1 - Math.sqrt(dRef / dFwd));
-
-            //Red text for bad VSWR, Green text for good VSWR
-            if (dVswr <= 1.5)
+            if ((txtFwd.getText().length() > 0) && (txtRef.getText().length() > 0))
             {
-                lblVswr.setTextColor(Color.GREEN);
+                //Fetch text from input fields
+                double dFwd = Double.parseDouble(txtFwd.getText().toString());
+                double dRef = Double.parseDouble(txtRef.getText().toString());
+
+                //Calculate VSWR
+                double dVswr = (1 + Math.sqrt(dRef / dFwd)) / (1 - Math.sqrt(dRef / dFwd));
+
+                //Red text for bad VSWR, Green text for good VSWR
+                if (dVswr <= 1.5) {
+                    lblVswr.setTextColor(Color.GREEN);
+                } else {
+                    lblVswr.setTextColor(Color.RED);
+                }
+
+                //Show result rounded to two decimal places
+                DecimalFormat df = new DecimalFormat("0.00");
+                lblVswr.setText(df.format(dVswr));
             }
             else
             {
-                lblVswr.setTextColor(Color.RED);
+                Toast.makeText(getApplicationContext(), "Check your inputs!", Toast.LENGTH_SHORT).show();
             }
-
-            //Show result rounded to two decimal places
-            DecimalFormat df = new DecimalFormat("0.00");
-            lblVswr.setText(df.format(dVswr));
 
         }
         else if (view.getId() == R.id.bClear)
