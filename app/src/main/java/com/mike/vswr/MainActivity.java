@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view)
     {
-        //Fetch next fields
+        //Fetch text fields
         EditText txtFwd = findViewById(R.id.txtFwd);
         EditText txtRef = findViewById(R.id.txtRef);
         TextView lblVswr = findViewById(R.id.lblVswr);
@@ -75,9 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 double dVswr = (1 + Math.sqrt(dRef / dFwd)) / (1 - Math.sqrt(dRef / dFwd));
 
                 //Red text for bad VSWR, Green text for good VSWR
-                if (dVswr <= 1.5) {
+                if (dVswr <= 1.5)
+                {
                     lblVswr.setTextColor(Color.GREEN);
-                } else {
+                }
+                else
+                {
                     lblVswr.setTextColor(Color.RED);
                 }
 
